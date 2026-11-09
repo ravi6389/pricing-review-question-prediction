@@ -3,7 +3,7 @@
 **Avathon AI Hiring Challenge — Track B (SLM Fine-Tuning), Scenario S2**
 Ravi Shankar Prasad
 
-**Video walkthrough (5 min):** _<paste unlisted YouTube link here>_
+**Video walkthrough (5 min):** https://drive.google.com/file/d/1bWHvZuBcsudgZY80ij5G5ynrm4aYWxdO/view
 **Write-up:** [`writeup/Avathon_TrackB_RaviShankarPrasad.pdf`](writeup/Avathon_TrackB_RaviShankarPrasad.pdf)
 
 ---
