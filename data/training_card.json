@@ -1,0 +1,91 @@
+{
+  "stage": "5_question_phrasing",
+  "leakage_check": {
+    "unique_questions_train_val": 383,
+    "unique_questions_test": 126,
+    "shared_questions": 0,
+    "shared_question_rate": 0.0,
+    "shared_deals": 0,
+    "surface_holdout_clean": true
+  },
+  "seed": 42,
+  "llm": {
+    "provider": "azure",
+    "model": "gpt-4o",
+    "replayed": 15,
+    "generated": 0,
+    "offline": 0
+  },
+  "variants_per_lever": 40,
+  "train_variant_slice": [
+    0,
+    30
+  ],
+  "test_variant_slice": [
+    30,
+    40
+  ],
+  "n_examples": {
+    "train": 700,
+    "val": 100,
+    "test": 200
+  },
+  "mode": "set",
+  "label_distribution": {
+    "train": {
+      "L1": 700,
+      "L2": 455,
+      "L3": 341,
+      "L4": 264,
+      "L5": 208,
+      "L6": 208,
+      "L8": 208,
+      "L9": 197,
+      "L10": 197,
+      "L11": 103,
+      "L12": 487,
+      "L13": 232,
+      "L14": 42
+    },
+    "val": {
+      "L1": 100,
+      "L2": 66,
+      "L3": 46,
+      "L4": 33,
+      "L5": 26,
+      "L6": 26,
+      "L8": 26,
+      "L9": 26,
+      "L10": 26,
+      "L11": 9,
+      "L12": 69,
+      "L13": 29,
+      "L14": 2
+    },
+    "test": {
+      "L1": 200,
+      "L2": 121,
+      "L3": 89,
+      "L4": 62,
+      "L5": 50,
+      "L6": 50,
+      "L8": 50,
+      "L9": 46,
+      "L10": 46,
+      "L11": 28,
+      "L12": 132,
+      "L13": 61,
+      "L14": 13
+    }
+  },
+  "mean_questions_per_example": {
+    "train": 5.2,
+    "val": 4.84,
+    "test": 4.74
+  },
+  "holdout_note": "Test examples use author voice pool B (stage 2) AND manager phrasing variants 30-39, neither of which appear in training. The test set therefore shares no surface wording with training on either side of the conversation.",
+  "limitations": [
+    "Manager questions are composed from a fixed variant pool plus an acknowledgement opener, so they are more formulaic than a real manager, who would weave the previous answer into the question.",
+    "Acknowledgements quote the rep's answer verbatim; a real manager paraphrases."
+  ]
+}

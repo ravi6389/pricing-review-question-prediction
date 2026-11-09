@@ -1,0 +1,101 @@
+{
+  "stage": "4_review_simulation",
+  "seed": 42,
+  "n_reviews": 1000,
+  "n_turns_total": 4786,
+  "mean_turns_per_review": 4.79,
+  "turn_length_distribution": {
+    "1": 179,
+    "2": 173,
+    "3": 162,
+    "4": 168,
+    "5": 34,
+    "7": 38,
+    "8": 16,
+    "9": 8,
+    "10": 54,
+    "11": 104,
+    "12": 49,
+    "13": 15
+  },
+  "declared_response_mix": {
+    "refuse": 0.56,
+    "bare_assert": 0.26,
+    "substantive": 0.18
+  },
+  "realised_response_mix": {
+    "bare_assert": 0.37,
+    "refuse": 0.564,
+    "substantive": 0.066
+  },
+  "lever_frequency": {
+    "L1_price_increase_headroom": {
+      "turns": 1000,
+      "share_of_turns": 0.2089
+    },
+    "L2_targeted_increase_low_margin_lines": {
+      "turns": 642,
+      "share_of_turns": 0.1341
+    },
+    "L3_rebate_instead_of_reduction": {
+      "turns": 476,
+      "share_of_turns": 0.0995
+    },
+    "L4_config_or_assay_mix": {
+      "turns": 359,
+      "share_of_turns": 0.075
+    },
+    "L5_competitor_gtm_model": {
+      "turns": 284,
+      "share_of_turns": 0.0593
+    },
+    "L6_pressure_and_sensitivity_justified": {
+      "turns": 284,
+      "share_of_turns": 0.0593
+    },
+    "L7_sensitivity_drivers": {
+      "turns": 71,
+      "share_of_turns": 0.0148
+    },
+    "L8_our_price_competitiveness": {
+      "turns": 231,
+      "share_of_turns": 0.0483
+    },
+    "L9_drp_improvement": {
+      "turns": 221,
+      "share_of_turns": 0.0462
+    },
+    "L10_negative_drp_line_drivers": {
+      "turns": 221,
+      "share_of_turns": 0.0462
+    },
+    "L11_loss_risk_and_installed_base": {
+      "turns": 113,
+      "share_of_turns": 0.0236
+    },
+    "L12_competitor_bundling": {
+      "turns": 688,
+      "share_of_turns": 0.1438
+    },
+    "L13_post_win_matching_and_renewal": {
+      "turns": 139,
+      "share_of_turns": 0.029
+    },
+    "L14_term_vs_breakeven_mismatch": {
+      "turns": 57,
+      "share_of_turns": 0.0119
+    }
+  },
+  "verdict_distribution": {
+    "approve_with_conditions": 0.715,
+    "escalate": 0.104,
+    "rework_pricing": 0.134,
+    "walk_away": 0.047
+  },
+  "class_imbalance_note": "Lever frequency is the label distribution for the next-lever task. It is heavily imbalanced by construction, because early ladder levers fire in almost every review while late ones need specific conditions. Report macro-F1 alongside accuracy: accuracy alone is dominated by the common early levers.",
+  "limitations": [
+    "Rep answers are drawn from fixed per-lever pools, so the model sees far less linguistic variety on the rep side than in reality.",
+    "The simulated rep never contradicts itself, stalls, or volunteers information, so the model is not trained for evasive counterparties.",
+    "Answer kind is independent of the deal's economics; a real rep is more likely to refuse when genuinely boxed in."
+  ]
+}

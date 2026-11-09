@@ -1,0 +1,86 @@
+{
+  "stage": "4_question_sets",
+  "mode": "set",
+  "seed": 42,
+  "n_deals": 1000,
+  "n_questions_total": 5074,
+  "mean_questions_per_deal": 5.07,
+  "question_count_distribution": {
+    "1": 179,
+    "2": 132,
+    "3": 172,
+    "4": 166,
+    "5": 67,
+    "8": 4,
+    "9": 11,
+    "10": 59,
+    "11": 136,
+    "12": 63,
+    "13": 11
+  },
+  "lever_frequency": {
+    "L1_price_increase_headroom": {
+      "deals": 1000,
+      "share_of_deals": 1.0
+    },
+    "L2_targeted_increase_low_margin_lines": {
+      "deals": 642,
+      "share_of_deals": 0.642
+    },
+    "L3_rebate_instead_of_reduction": {
+      "deals": 476,
+      "share_of_deals": 0.476
+    },
+    "L4_config_or_assay_mix": {
+      "deals": 359,
+      "share_of_deals": 0.359
+    },
+    "L5_competitor_gtm_model": {
+      "deals": 284,
+      "share_of_deals": 0.284
+    },
+    "L6_pressure_and_sensitivity_justified": {
+      "deals": 284,
+      "share_of_deals": 0.284
+    },
+    "L7_sensitivity_drivers": {
+      "deals": 0,
+      "share_of_deals": 0.0
+    },
+    "L8_our_price_competitiveness": {
+      "deals": 284,
+      "share_of_deals": 0.284
+    },
+    "L9_drp_improvement": {
+      "deals": 269,
+      "share_of_deals": 0.269
+    },
+    "L10_negative_drp_line_drivers": {
+      "deals": 269,
+      "share_of_deals": 0.269
+    },
+    "L11_loss_risk_and_installed_base": {
+      "deals": 140,
+      "share_of_deals": 0.14
+    },
+    "L12_competitor_bundling": {
+      "deals": 688,
+      "share_of_deals": 0.688
+    },
+    "L13_post_win_matching_and_renewal": {
+      "deals": 322,
+      "share_of_deals": 0.322
+    },
+    "L14_term_vs_breakeven_mismatch": {
+      "deals": 57,
+      "share_of_deals": 0.057
+    }
+  },
+  "verdict_distribution": {
+    "approve_with_conditions": 0.715,
+    "escalate": 0.104,
+    "rework_pricing": 0.134,
+    "walk_away": 0.047
+  },
+  "note": "Set size varies by deal because lever triggers depend on the deal's own economics. That variation IS the task: a fixed list for every deal would be memorisable from one example."
+}

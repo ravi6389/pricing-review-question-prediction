@@ -1,0 +1,37 @@
+{
+  "stage": "2_document_writing",
+  "seed": 42,
+  "llm": {
+    "provider": "azure",
+    "model": "gpt-4o",
+    "replayed": 1000,
+    "generated": 0,
+    "offline": 0
+  },
+  "n_documents": 1000,
+  "split_counts": {
+    "train": 700,
+    "val": 100,
+    "test": 200
+  },
+  "voice_pool_A": [
+    "bullet_heavy_kam",
+    "narrative_sales_director",
+    "terse_regional_manager",
+    "verbose_account_manager"
+  ],
+  "voice_pool_B_test_only": [
+    "clipped_export_manager",
+    "formal_tender_desk"
+  ],
+  "fields_never_in_document": [
+    "annual_reagent_profit_k",
+    "archetype",
+    "contract_reagent_revenue_k",
+    "deal_id",
+    "margin_floor",
+    "omitted_in_document",
+    "target_breakeven_months"
+  ],
+  "note": "Test documents use voice pool B, which shares no phrasing conventions with pool A. This is a held-out SURFACE, not just held-out rows."
+}

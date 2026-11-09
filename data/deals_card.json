@@ -1,0 +1,261 @@
+{
+  "stage": "1_deal_generation",
+  "seed": 42,
+  "n_deals": 1000,
+  "n_features_per_deal": 29,
+  "declared_archetype_mix": {
+    "clean": 0.18,
+    "margin_squeeze": 0.24,
+    "underwater": 0.16,
+    "competitive_bundle": 0.18,
+    "term_mismatch": 0.14,
+    "displacement": 0.1
+  },
+  "realised_archetype_mix": {
+    "clean": 0.198,
+    "competitive_bundle": 0.185,
+    "displacement": 0.093,
+    "margin_squeeze": 0.234,
+    "term_mismatch": 0.139,
+    "underwater": 0.151
+  },
+  "declared_field_ranges_by_archetype": {
+    "clean": {
+      "hardware_outlay_k": [
+        40,
+        140
+      ],
+      "target_breakeven_months": [
+        14,
+        26
+      ],
+      "reagent_margin": [
+        0.34,
+        0.48
+      ],
+      "lease_months": [
+        36,
+        60
+      ],
+      "drp_vs_threshold": [
+        1.02,
+        1.18
+      ],
+      "worst_line_margin": [
+        0.19,
+        0.34
+      ],
+      "competitor_present_p": 0.3,
+      "bundling_p": 0.1,
+      "installed_base_p": 0.25,
+      "demands_reduction_p": 0.15
+    },
+    "margin_squeeze": {
+      "hardware_outlay_k": [
+        60,
+        200
+      ],
+      "target_breakeven_months": [
+        22,
+        34
+      ],
+      "reagent_margin": [
+        0.24,
+        0.36
+      ],
+      "lease_months": [
+        36,
+        60
+      ],
+      "drp_vs_threshold": [
+        0.86,
+        0.99
+      ],
+      "worst_line_margin": [
+        0.06,
+        0.17
+      ],
+      "competitor_present_p": 0.72,
+      "bundling_p": 0.22,
+      "installed_base_p": 0.45,
+      "demands_reduction_p": 0.8
+    },
+    "underwater": {
+      "hardware_outlay_k": [
+        90,
+        280
+      ],
+      "target_breakeven_months": [
+        30,
+        46
+      ],
+      "reagent_margin": [
+        0.18,
+        0.3
+      ],
+      "lease_months": [
+        36,
+        60
+      ],
+      "drp_vs_threshold": [
+        -0.12,
+        -0.01
+      ],
+      "worst_line_margin": [
+        0.01,
+        0.12
+      ],
+      "competitor_present_p": 0.85,
+      "bundling_p": 0.4,
+      "installed_base_p": 0.55,
+      "demands_reduction_p": 0.88
+    },
+    "competitive_bundle": {
+      "hardware_outlay_k": [
+        70,
+        220
+      ],
+      "target_breakeven_months": [
+        20,
+        34
+      ],
+      "reagent_margin": [
+        0.22,
+        0.38
+      ],
+      "lease_months": [
+        36,
+        60
+      ],
+      "drp_vs_threshold": [
+        0.82,
+        1.02
+      ],
+      "worst_line_margin": [
+        0.08,
+        0.22
+      ],
+      "competitor_present_p": 1.0,
+      "bundling_p": 1.0,
+      "installed_base_p": 0.4,
+      "demands_reduction_p": 0.7
+    },
+    "term_mismatch": {
+      "hardware_outlay_k": [
+        110,
+        300
+      ],
+      "target_breakeven_months": [
+        34,
+        56
+      ],
+      "reagent_margin": [
+        0.2,
+        0.34
+      ],
+      "lease_months": [
+        24,
+        36
+      ],
+      "drp_vs_threshold": [
+        0.88,
+        1.08
+      ],
+      "worst_line_margin": [
+        0.1,
+        0.26
+      ],
+      "competitor_present_p": 0.55,
+      "bundling_p": 0.18,
+      "installed_base_p": 0.3,
+      "demands_reduction_p": 0.45
+    },
+    "displacement": {
+      "hardware_outlay_k": [
+        80,
+        240
+      ],
+      "target_breakeven_months": [
+        20,
+        32
+      ],
+      "reagent_margin": [
+        0.26,
+        0.4
+      ],
+      "lease_months": [
+        36,
+        60
+      ],
+      "drp_vs_threshold": [
+        0.84,
+        1.04
+      ],
+      "worst_line_margin": [
+        0.09,
+        0.24
+      ],
+      "competitor_present_p": 0.95,
+      "bundling_p": 0.45,
+      "installed_base_p": 1.0,
+      "demands_reduction_p": 0.65
+    }
+  },
+  "declared_omission_probability": {
+    "competitor_gtm": 0.22,
+    "competitor_bundling": 0.26,
+    "worst_line_margin": 0.14,
+    "alt_config_available": 0.18
+  },
+  "margin_floor_policy": 0.18,
+  "derived_fields": [
+    "annual_reagent_profit_k = annual_reagent_k * reagent_margin",
+    "breakeven_months = ceil(hardware_outlay_k / annual_reagent_profit_k * 12)",
+    "contract_reagent_revenue_k = annual_reagent_k * lease_months / 12",
+    "roi_pct = (contract_reagent_profit_k - hardware_outlay_k) / hardware_outlay_k * 100"
+  ],
+  "lever_coverage": {
+    "L1 drp below threshold": {
+      "count": 703,
+      "share": 0.703
+    },
+    "L2 line below margin floor": {
+      "count": 642,
+      "share": 0.642
+    },
+    "L3 customer demands reduction": {
+      "count": 617,
+      "share": 0.617
+    },
+    "L4 config or assay alternative": {
+      "count": 736,
+      "share": 0.736
+    },
+    "L5/L12 competitor present": {
+      "count": 688,
+      "share": 0.688
+    },
+    "L9 drp negative": {
+      "count": 151,
+      "share": 0.151
+    },
+    "L11 installed base": {
+      "count": 437,
+      "share": 0.437
+    },
+    "L13 competitor bundling": {
+      "count": 322,
+      "share": 0.322
+    },
+    "L14 breakeven outside term": {
+      "count": 184,
+      "share": 0.184
+    }
+  },
+  "limitations": [
+    "Archetype-conditioned sampling produces a more balanced and more internally coherent population than a real pipeline, where most deals are unremarkable and hard cases are rare.",
+    "Feature values are noise-free. Real deal write-ups contain stale figures, disputed margins, and numbers that disagree between pages.",
+    "Policy constants (margin floor, threshold) are illustrative, not any company's actual thresholds.",
+    "A single margin floor applies to all segments; in reality floors differ by segment, channel and region."
+  ]
+}
