@@ -1,0 +1,41 @@
+# secrets — never commit (matches at any depth, incl. src/.env)
+.env
+.env.*
+**/.env
+*.key
+secrets.json
+
+# archives — too large, contents already present unzipped
+*.zip
+*.rar
+*.7z
+
+# model weights — too large for git
+outputs/
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+adapter_model*
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+virtual_workspace/
+.ipynb_checkpoints/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# build artefacts
+*.html
+*.log
+pg-*.png
+results_bundle.zip
+*.docx
+*.docx
