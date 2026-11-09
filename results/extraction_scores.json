@@ -1,0 +1,108 @@
+{
+  "stage": "3_feature_extraction",
+  "extractor": "llm",
+  "llm": {
+    "provider": "azure",
+    "model": "gpt-4o",
+    "replayed": 0,
+    "generated": 1000,
+    "offline": 0
+  },
+  "overall": {
+    "n_documents": 1000,
+    "field_accuracy_on_stated": 0.8785,
+    "miss_rate_on_stated": 0.0992,
+    "abstention_recall_on_omitted": 0.8365,
+    "hallucination_rate_on_omitted": 0.1635,
+    "n_stated_fields": 23199,
+    "n_omitted_fields": 801,
+    "per_field_accuracy": {
+      "alt_config_available": 0.7162,
+      "annual_reagent_k": 0.994,
+      "assay_count": 0.881,
+      "breakeven_months": 0.993,
+      "channel": 0.746,
+      "competitor_bundling": 0.9554,
+      "competitor_gtm": 0.4981,
+      "competitor_present": 0.988,
+      "consumable_investment_k": 0.8,
+      "customer_demands_reduction": 0.938,
+      "deal_margin_pct": 0.924,
+      "discount_pct": 0.905,
+      "drp_vs_threshold": 0.909,
+      "hardware_outlay_k": 0.917,
+      "higher_margin_assay_available": 0.821,
+      "installed_base": 0.862,
+      "instrument_count": 0.992,
+      "lease_months": 0.881,
+      "list_price_k": 0.718,
+      "reagent_margin": 0.959,
+      "region": 0.975,
+      "roi_pct": 0.988,
+      "segment": 0.745,
+      "worst_line_margin": 0.8849
+    },
+    "worst_fields": [
+      [
+        "competitor_gtm",
+        0.4981
+      ],
+      [
+        "alt_config_available",
+        0.7162
+      ],
+      [
+        "list_price_k",
+        0.718
+      ],
+      [
+        "segment",
+        0.745
+      ],
+      [
+        "channel",
+        0.746
+      ],
+      [
+        "consumable_investment_k",
+        0.8
+      ]
+    ]
+  },
+  "by_split": {
+    "train": {
+      "n_documents": 700,
+      "field_accuracy_on_stated": 0.8872,
+      "miss_rate_on_stated": 0.0926,
+      "abstention_recall_on_omitted": 0.8339,
+      "hallucination_rate_on_omitted": 0.1661,
+      "n_stated_fields": 16240,
+      "n_omitted_fields": 560,
+      "per_field_accuracy": {},
+      "worst_fields": []
+    },
+    "val": {
+      "n_documents": 100,
+      "field_accuracy_on_stated": 0.864,
+      "miss_rate_on_stated": 0.1092,
+      "abstention_recall_on_omitted": 0.7952,
+      "hallucination_rate_on_omitted": 0.2048,
+      "n_stated_fields": 2317,
+      "n_omitted_fields": 83,
+      "per_field_accuracy": {},
+      "worst_fields": []
+    },
+    "test": {
+      "n_documents": 200,
+      "field_accuracy_on_stated": 0.8555,
+      "miss_rate_on_stated": 0.1172,
+      "abstention_recall_on_omitted": 0.8671,
+      "hallucination_rate_on_omitted": 0.1329,
+      "n_stated_fields": 4642,
+      "n_omitted_fields": 158,
+      "per_field_accuracy": {},
+      "worst_fields": []
+    }
+  },
+  "note": "hallucination_rate_on_omitted is the headline number: of fields the document genuinely does not state, how often did the extractor invent a value instead of abstaining."
+}

@@ -1,0 +1,104 @@
+{
+  "models": {
+    "Qwen/Qwen2.5-0.5B-Instruct": {
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "quantised_4bit": false,
+      "split": "val",
+      "n_examples": 100,
+      "mean_loss": 3.1976,
+      "perplexity": 24.473,
+      "supervised_tokens": 7902,
+      "mean_tokens_per_example": 372.1,
+      "mean_supervised_tokens_per_example": 79.0,
+      "truncated_examples": 0,
+      "gpu": {
+        "name": "Tesla T4",
+        "capability": "7.5",
+        "bf16": false,
+        "can_4bit": true,
+        "total_memory_gb": 14.6
+      },
+      "comparability_warning": "Loss and perplexity are comparable only between models sharing a tokenizer. Compare across families on next-lever accuracy instead."
+    },
+    "meta-llama/Llama-3.2-1B-Instruct": {
+      "model": "meta-llama/Llama-3.2-1B-Instruct",
+      "quantised_4bit": false,
+      "split": "val",
+      "n_examples": 100,
+      "mean_loss": 3.2108,
+      "perplexity": 24.799,
+      "supervised_tokens": 7852,
+      "mean_tokens_per_example": 379.0,
+      "mean_supervised_tokens_per_example": 78.5,
+      "truncated_examples": 0,
+      "gpu": {
+        "name": "Tesla T4",
+        "capability": "7.5",
+        "bf16": false,
+        "can_4bit": true,
+        "total_memory_gb": 14.6
+      },
+      "comparability_warning": "Loss and perplexity are comparable only between models sharing a tokenizer. Compare across families on next-lever accuracy instead."
+    },
+    "Qwen/Qwen2.5-1.5B-Instruct": {
+      "model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "quantised_4bit": false,
+      "split": "val",
+      "n_examples": 100,
+      "mean_loss": 3.0019,
+      "perplexity": 20.123,
+      "supervised_tokens": 7902,
+      "mean_tokens_per_example": 372.1,
+      "mean_supervised_tokens_per_example": 79.0,
+      "truncated_examples": 0,
+      "gpu": {
+        "name": "Tesla T4",
+        "capability": "7.5",
+        "bf16": false,
+        "can_4bit": true,
+        "total_memory_gb": 14.6
+      },
+      "comparability_warning": "Loss and perplexity are comparable only between models sharing a tokenizer. Compare across families on next-lever accuracy instead."
+    },
+    "meta-llama/Llama-3.2-3B-Instruct": {
+      "model": "meta-llama/Llama-3.2-3B-Instruct",
+      "quantised_4bit": false,
+      "split": "val",
+      "n_examples": 100,
+      "mean_loss": 3.1591,
+      "perplexity": 23.55,
+      "supervised_tokens": 7852,
+      "mean_tokens_per_example": 379.0,
+      "mean_supervised_tokens_per_example": 78.5,
+      "truncated_examples": 0,
+      "gpu": {
+        "name": "Tesla T4",
+        "capability": "7.5",
+        "bf16": false,
+        "can_4bit": true,
+        "total_memory_gb": 14.6
+      },
+      "comparability_warning": "Loss and perplexity are comparable only between models sharing a tokenizer. Compare across families on next-lever accuracy instead."
+    },
+    "Qwen/Qwen2.5-3B-Instruct": {
+      "model": "Qwen/Qwen2.5-3B-Instruct",
+      "quantised_4bit": false,
+      "split": "val",
+      "n_examples": 100,
+      "mean_loss": 3.2729,
+      "perplexity": 26.387,
+      "supervised_tokens": 7902,
+      "mean_tokens_per_example": 372.1,
+      "mean_supervised_tokens_per_example": 79.0,
+      "truncated_examples": 0,
+      "gpu": {
+        "name": "Tesla T4",
+        "capability": "7.5",
+        "bf16": false,
+        "can_4bit": true,
+        "total_memory_gb": 14.6
+      },
+      "comparability_warning": "Loss and perplexity are comparable only between models sharing a tokenizer. Compare across families on next-lever accuracy instead."
+    }
+  }
+}

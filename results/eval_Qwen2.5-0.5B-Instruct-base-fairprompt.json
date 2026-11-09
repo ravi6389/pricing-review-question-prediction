@@ -1,0 +1,141 @@
+{
+  "stage": "7_evaluation",
+  "tag": "Qwen2.5-0.5B-Instruct-base-fairprompt",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "adapter": null,
+  "fair_baseline_prompt": true,
+  "split": "test_ood",
+  "mode": "set",
+  "decoding": "greedy",
+  "mapping": {
+    "method": "TF-IDF cosine against per-lever phrasing pools",
+    "similarity_floor": 0.12,
+    "pools_built_from": "train + val + test phrasings",
+    "pools_note": "The mapper is a label DECODER, not a trained component: it learns nothing from gold labels, it only records what each lever sounds like. Including test phrasings therefore leaks nothing into any model, and it keeps mapping quality equal across base and tuned runs. Self-mapping gold test questions scores 1.0, confirming the decoder itself is not the bottleneck.",
+    "known_bias": "A fine-tuned model writes in the phrasing style it was trained on and therefore maps more cleanly than a base model writing freely. This favours the fine-tuned model. unmappable_rate is reported so the reader can judge how much of any gap is mapping failure rather than wrong lever choice."
+  },
+  "metrics": {
+    "n_deals": 200,
+    "micro_precision": 0.412,
+    "micro_recall": 0.2542,
+    "micro_f1": 0.3144,
+    "macro_precision": 0.2697,
+    "macro_recall": 0.2128,
+    "macro_f1": 0.2106,
+    "exact_set_match": 0.0,
+    "mean_questions_predicted": 19.15,
+    "mean_questions_gold": 4.74,
+    "mean_count_error": 14.41,
+    "unmappable_questions": 3124,
+    "unmappable_rate": 0.8157,
+    "per_lever_recall": {
+      "L1_price_increase_headroom": {
+        "gold_deals": 200,
+        "recall": 0.005,
+        "false_positives": 0
+      },
+      "L2_targeted_increase_low_margin_lines": {
+        "gold_deals": 121,
+        "recall": 0.4793,
+        "false_positives": 30
+      },
+      "L3_rebate_instead_of_reduction": {
+        "gold_deals": 89,
+        "recall": 0.6966,
+        "false_positives": 67
+      },
+      "L4_config_or_assay_mix": {
+        "gold_deals": 62,
+        "recall": 0.0,
+        "false_positives": 0
+      },
+      "L5_competitor_gtm_model": {
+        "gold_deals": 50,
+        "recall": 0.1,
+        "false_positives": 6
+      },
+      "L6_pressure_and_sensitivity_justified": {
+        "gold_deals": 50,
+        "recall": 0.5,
+        "false_positives": 53
+      },
+      "L7_sensitivity_drivers": {
+        "gold_deals": 0,
+        "recall": 0.0,
+        "false_positives": 0
+      },
+      "L8_our_price_competitiveness": {
+        "gold_deals": 50,
+        "recall": 0.02,
+        "false_positives": 8
+      },
+      "L9_drp_improvement": {
+        "gold_deals": 46,
+        "recall": 0.0,
+        "false_positives": 0
+      },
+      "L10_negative_drp_line_drivers": {
+        "gold_deals": 46,
+        "recall": 0.4565,
+        "false_positives": 57
+      },
+      "L11_loss_risk_and_installed_base": {
+        "gold_deals": 28,
+        "recall": 0.3571,
+        "false_positives": 63
+      },
+      "L12_competitor_bundling": {
+        "gold_deals": 132,
+        "recall": 0.4015,
+        "false_positives": 20
+      },
+      "L13_post_win_matching_and_renewal": {
+        "gold_deals": 61,
+        "recall": 0.0164,
+        "false_positives": 0
+      },
+      "L14_term_vs_breakeven_mismatch": {
+        "gold_deals": 13,
+        "recall": 0.3077,
+        "false_positives": 40
+      }
+    }
+  },
+  "trivial_baselines": {
+    "ask_all_14": {
+      "levers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "micro_f1": 0.5059,
+      "micro_recall": 1.0,
+      "micro_precision": 0.3386,
+      "exact_set_match": 0.0
+    },
+    "most_common_5": {
+      "levers": [
+        1,
+        12,
+        2,
+        3,
+        4
+      ],
+      "micro_f1": 0.6201,
+      "micro_recall": 0.6371,
+      "micro_precision": 0.604,
+      "exact_set_match": 0.0
+    }
+  }
+}

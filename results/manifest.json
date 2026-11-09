@@ -1,0 +1,53 @@
+{
+  "environment": {
+    "datasets": null,
+    "peft": null,
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.16",
+    "seed": 42,
+    "torch": null,
+    "transformers": null
+  },
+  "steps": {
+    "step1": {
+      "artifacts": {
+        "data/deals.jsonl": "270da4ca8f3a4d5e7ed8f09310e902a24c173a5dd11b7a2f3dd3cd072923b2a7",
+        "data/deals_card.json": "ab6e7abb95fd42e6cdadd98530e4e6505ff708422c55612ff2a774ab78dabda5"
+      },
+      "description": "Fix true deal feature values from declared distributions"
+    },
+    "step2": {
+      "artifacts": {
+        "cache/documents.json": "a41c7aeac9f7c842cba3ca077709d19be47eb0095361c6b63f5addb7be8b2e7d",
+        "data/documents.jsonl": "45bb5b4f662d78a3573cba8e6f19f329406b9e9cdda818a0ce67728a3571e8f4",
+        "data/documents_card.json": "97219351164fc4cad8a0dfc8656eeca300921503c5f694785c23c5598606dd8a"
+      },
+      "description": "Write each deal up as natural prose (CACHED model calls)"
+    },
+    "step3": {
+      "artifacts": {
+        "cache/extraction.json": "b347d8ea53b27f8e82c120b09db62cfb3f62c2d2350ce3510db814164d3008e7",
+        "data/extracted.jsonl": "2a2b352f41a37b94c6441a5b272079e029947dc56a8f9b31e37c6f89e6f2fd59",
+        "results/extraction_scores.json": "ea394f15e250298c32e18c8c9ed9a7e56df9e875eec6049bf76e83173e551985"
+      },
+      "description": "Extract features back from prose and score against step 1 truth"
+    },
+    "step4": {
+      "artifacts": {
+        "data/question_sets.jsonl": "5a226d3ba1950876c567abd594a76e5913c7ba7631706e852d58040f5f572e72",
+        "data/question_sets_card.json": "8676a7f4c0396dcb49102e277c1605ac307695025c4a891b177595c06282f78c",
+        "results/lever_distribution.json": "30012fa685853acb03b5fd5525a6da9660e31ae6ce17c4f5291a62dabb9b7e78"
+      },
+      "description": "Run the lever rules to produce review conversations"
+    },
+    "step5": {
+      "artifacts": {
+        "cache/phrasings.json": "9e686306cfe369e480c98850ed77740ed6cffbe28c45d0ef6ab5c04f23a802f3",
+        "data/test_ood.jsonl": "c74f13fca9af58b0981377ff97ef96e476ff07cce41c4eb4adc46977cd9b96b3",
+        "data/train.jsonl": "8deadf048637194747d886272335b8ca6644e2c8b9a1b2507f7e7f205baf3816",
+        "data/val.jsonl": "4bdfa78f92eb5d1817af9e43a5975eb1f41e5f2c1bd2d985b1603e146c5c41d0"
+      },
+      "description": "Phrase each lever in the manager's voice (CACHED model calls)"
+    }
+  }
+}

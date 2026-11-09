@@ -1,0 +1,874 @@
+{
+  "runs": {
+    "Qwen2.5-0.5B-Instruct-tuned": {
+      "n_deals": 200,
+      "micro_precision": 0.5898,
+      "micro_recall": 0.3914,
+      "micro_f1": 0.4705,
+      "macro_precision": 0.5786,
+      "macro_recall": 0.3928,
+      "macro_f1": 0.4262,
+      "exact_set_match": 0.025,
+      "mean_questions_predicted": 4.57,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": -0.17,
+      "unmappable_questions": 170,
+      "unmappable_rate": 0.1862,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.165,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 1.0,
+          "false_positives": 79
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.9326,
+          "false_positives": 108
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.0645,
+          "false_positives": 7
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.02,
+          "false_positives": 2
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.02,
+          "false_positives": 1
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.06,
+          "false_positives": 1
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.0,
+          "false_positives": 1
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.0435,
+          "false_positives": 1
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.9318,
+          "false_positives": 58
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.0,
+          "false_positives": 0
+        }
+      }
+    },
+    "Qwen2.5-0.5B-Instruct-base-fairprompt": {
+      "n_deals": 200,
+      "micro_precision": 0.412,
+      "micro_recall": 0.2542,
+      "micro_f1": 0.3144,
+      "macro_precision": 0.2697,
+      "macro_recall": 0.2128,
+      "macro_f1": 0.2106,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 19.15,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 14.41,
+      "unmappable_questions": 3124,
+      "unmappable_rate": 0.8157,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.005,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 0.4793,
+          "false_positives": 30
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.6966,
+          "false_positives": 67
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.1,
+          "false_positives": 6
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.5,
+          "false_positives": 53
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.02,
+          "false_positives": 8
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.4565,
+          "false_positives": 57
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.3571,
+          "false_positives": 63
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.4015,
+          "false_positives": 20
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.0164,
+          "false_positives": 0
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.3077,
+          "false_positives": 40
+        }
+      }
+    },
+    "Qwen2.5-1.5B-Instruct-tuned": {
+      "n_deals": 200,
+      "micro_precision": 0.5749,
+      "micro_recall": 0.2954,
+      "micro_f1": 0.3902,
+      "macro_precision": 0.5803,
+      "macro_recall": 0.2998,
+      "macro_f1": 0.3554,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 3.21,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": -1.52,
+      "unmappable_questions": 155,
+      "unmappable_rate": 0.2411,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.225,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 1.0,
+          "false_positives": 78
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.6629,
+          "false_positives": 86
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.0,
+          "false_positives": 8
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.4091,
+          "false_positives": 34
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.0164,
+          "false_positives": 1
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.0,
+          "false_positives": 0
+        }
+      }
+    },
+    "Qwen2.5-3B-Instruct-tuned": {
+      "n_deals": 200,
+      "micro_precision": 0.6041,
+      "micro_recall": 0.4378,
+      "micro_f1": 0.5076,
+      "macro_precision": 0.6214,
+      "macro_recall": 0.5125,
+      "macro_f1": 0.4841,
+      "exact_set_match": 0.035,
+      "mean_questions_predicted": 4.12,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": -0.62,
+      "unmappable_questions": 114,
+      "unmappable_rate": 0.1385,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.48,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 1.0,
+          "false_positives": 71
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.6966,
+          "false_positives": 62
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.4677,
+          "false_positives": 55
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.1,
+          "false_positives": 13
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.12,
+          "false_positives": 4
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.06,
+          "false_positives": 4
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.087,
+          "false_positives": 5
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.0435,
+          "false_positives": 2
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.1071,
+          "false_positives": 4
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.5455,
+          "false_positives": 29
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.1967,
+          "false_positives": 22
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.0,
+          "false_positives": 1
+        }
+      }
+    },
+    "Qwen2.5-1.5B-Instruct-base-fairprompt": {
+      "n_deals": 200,
+      "micro_precision": 0.3327,
+      "micro_recall": 0.3671,
+      "micro_f1": 0.349,
+      "macro_precision": 0.3028,
+      "macro_recall": 0.2796,
+      "macro_f1": 0.261,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 13.87,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 9.12,
+      "unmappable_questions": 1710,
+      "unmappable_rate": 0.6167,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 0.281,
+          "false_positives": 16
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.8764,
+          "false_positives": 88
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.1774,
+          "false_positives": 12
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.58,
+          "false_positives": 62
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.76,
+          "false_positives": 104
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.02,
+          "false_positives": 10
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.6957,
+          "false_positives": 115
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.0,
+          "false_positives": 6
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.5357,
+          "false_positives": 77
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.7348,
+          "false_positives": 27
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.0,
+          "false_positives": 3
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 1.0,
+          "false_positives": 178
+        }
+      }
+    },
+    "Llama-3.2-1B-Instruct-tuned": {
+      "n_deals": 200,
+      "micro_precision": 0.481,
+      "micro_recall": 0.6677,
+      "micro_f1": 0.5592,
+      "macro_precision": 0.5236,
+      "macro_recall": 0.7898,
+      "macro_f1": 0.5343,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 8.73,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 4.0,
+      "unmappable_questions": 97,
+      "unmappable_rate": 0.0555,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 1.0,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 1.0,
+          "false_positives": 79
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.4494,
+          "false_positives": 46
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.9355,
+          "false_positives": 114
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.48,
+          "false_positives": 77
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.5,
+          "false_positives": 79
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.42,
+          "false_positives": 59
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.1957,
+          "false_positives": 45
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.0435,
+          "false_positives": 16
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.2143,
+          "false_positives": 64
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.8106,
+          "false_positives": 52
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.3279,
+          "false_positives": 48
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.0,
+          "false_positives": 4
+        }
+      }
+    },
+    "Qwen2.5-3B-Instruct-base-fairprompt": {
+      "n_deals": 200,
+      "micro_precision": 0.3649,
+      "micro_recall": 0.3576,
+      "micro_f1": 0.3612,
+      "macro_precision": 0.3274,
+      "macro_recall": 0.3074,
+      "macro_f1": 0.2748,
+      "exact_set_match": 0.005,
+      "mean_questions_predicted": 12.07,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 7.33,
+      "unmappable_questions": 1465,
+      "unmappable_rate": 0.6066,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.185,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 0.2562,
+          "false_positives": 25
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.7303,
+          "false_positives": 67
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.1613,
+          "false_positives": 11
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.3,
+          "false_positives": 64
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.26,
+          "false_positives": 21
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.1,
+          "false_positives": 16
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.3043,
+          "false_positives": 22
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.4565,
+          "false_positives": 74
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.4643,
+          "false_positives": 82
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.6667,
+          "false_positives": 42
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.2951,
+          "false_positives": 36
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.6923,
+          "false_positives": 130
+        }
+      }
+    },
+    "Llama-3.2-3B-Instruct-tuned": {
+      "n_deals": 200,
+      "micro_precision": 0.3896,
+      "micro_recall": 0.6382,
+      "micro_f1": 0.4838,
+      "macro_precision": 0.4175,
+      "macro_recall": 0.6887,
+      "macro_f1": 0.4215,
+      "exact_set_match": 0.01,
+      "mean_questions_predicted": 10.49,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 5.75,
+      "unmappable_questions": 176,
+      "unmappable_rate": 0.0838,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.615,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 1.0,
+          "false_positives": 79
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.8539,
+          "false_positives": 92
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.9839,
+          "false_positives": 131
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.7,
+          "false_positives": 113
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.68,
+          "false_positives": 115
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.74,
+          "false_positives": 116
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.2609,
+          "false_positives": 46
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.3696,
+          "false_positives": 73
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.25,
+          "false_positives": 80
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.5606,
+          "false_positives": 25
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.082,
+          "false_positives": 19
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.2308,
+          "false_positives": 59
+        }
+      }
+    },
+    "Llama-3.2-1B-Instruct-base-fairprompt": {
+      "n_deals": 200,
+      "micro_precision": 0.33,
+      "micro_recall": 0.3091,
+      "micro_f1": 0.3192,
+      "macro_precision": 0.3133,
+      "macro_recall": 0.2551,
+      "macro_f1": 0.2433,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 14.57,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 9.83,
+      "unmappable_questions": 1982,
+      "unmappable_rate": 0.6802,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.045,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 0.4959,
+          "false_positives": 30
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.7303,
+          "false_positives": 81
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.0323,
+          "false_positives": 8
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.26,
+          "false_positives": 47
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.14,
+          "false_positives": 14
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.08,
+          "false_positives": 6
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.2826,
+          "false_positives": 40
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.4783,
+          "false_positives": 80
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.8214,
+          "false_positives": 148
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.5,
+          "false_positives": 35
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.0492,
+          "false_positives": 11
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.4615,
+          "false_positives": 95
+        }
+      }
+    },
+    "Llama-3.2-3B-Instruct-base-fairprompt": {
+      "n_deals": 200,
+      "micro_precision": 0.3043,
+      "micro_recall": 0.2215,
+      "micro_f1": 0.2564,
+      "macro_precision": 0.2651,
+      "macro_recall": 0.1793,
+      "macro_f1": 0.1692,
+      "exact_set_match": 0.0,
+      "mean_questions_predicted": 8.03,
+      "mean_questions_gold": 4.74,
+      "mean_count_error": 3.29,
+      "unmappable_questions": 895,
+      "unmappable_rate": 0.5576,
+      "per_lever_recall": {
+        "L1_price_increase_headroom": {
+          "gold_deals": 200,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L2_targeted_increase_low_margin_lines": {
+          "gold_deals": 121,
+          "recall": 0.2231,
+          "false_positives": 10
+        },
+        "L3_rebate_instead_of_reduction": {
+          "gold_deals": 89,
+          "recall": 0.4831,
+          "false_positives": 62
+        },
+        "L4_config_or_assay_mix": {
+          "gold_deals": 62,
+          "recall": 0.129,
+          "false_positives": 41
+        },
+        "L5_competitor_gtm_model": {
+          "gold_deals": 50,
+          "recall": 0.4,
+          "false_positives": 71
+        },
+        "L6_pressure_and_sensitivity_justified": {
+          "gold_deals": 50,
+          "recall": 0.22,
+          "false_positives": 36
+        },
+        "L7_sensitivity_drivers": {
+          "gold_deals": 0,
+          "recall": 0.0,
+          "false_positives": 0
+        },
+        "L8_our_price_competitiveness": {
+          "gold_deals": 50,
+          "recall": 0.04,
+          "false_positives": 8
+        },
+        "L9_drp_improvement": {
+          "gold_deals": 46,
+          "recall": 0.3913,
+          "false_positives": 77
+        },
+        "L10_negative_drp_line_drivers": {
+          "gold_deals": 46,
+          "recall": 0.3478,
+          "false_positives": 47
+        },
+        "L11_loss_risk_and_installed_base": {
+          "gold_deals": 28,
+          "recall": 0.2857,
+          "false_positives": 48
+        },
+        "L12_competitor_bundling": {
+          "gold_deals": 132,
+          "recall": 0.3485,
+          "false_positives": 14
+        },
+        "L13_post_win_matching_and_renewal": {
+          "gold_deals": 61,
+          "recall": 0.1148,
+          "false_positives": 16
+        },
+        "L14_term_vs_breakeven_mismatch": {
+          "gold_deals": 13,
+          "recall": 0.3077,
+          "false_positives": 50
+        }
+      }
+    }
+  }
+}

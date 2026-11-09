@@ -1,0 +1,58 @@
+{
+  "L1_price_increase_headroom": {
+    "deals": 1000,
+    "share_of_deals": 1.0
+  },
+  "L2_targeted_increase_low_margin_lines": {
+    "deals": 642,
+    "share_of_deals": 0.642
+  },
+  "L3_rebate_instead_of_reduction": {
+    "deals": 476,
+    "share_of_deals": 0.476
+  },
+  "L4_config_or_assay_mix": {
+    "deals": 359,
+    "share_of_deals": 0.359
+  },
+  "L5_competitor_gtm_model": {
+    "deals": 284,
+    "share_of_deals": 0.284
+  },
+  "L6_pressure_and_sensitivity_justified": {
+    "deals": 284,
+    "share_of_deals": 0.284
+  },
+  "L7_sensitivity_drivers": {
+    "deals": 0,
+    "share_of_deals": 0.0
+  },
+  "L8_our_price_competitiveness": {
+    "deals": 284,
+    "share_of_deals": 0.284
+  },
+  "L9_drp_improvement": {
+    "deals": 269,
+    "share_of_deals": 0.269
+  },
+  "L10_negative_drp_line_drivers": {
+    "deals": 269,
+    "share_of_deals": 0.269
+  },
+  "L11_loss_risk_and_installed_base": {
+    "deals": 140,
+    "share_of_deals": 0.14
+  },
+  "L12_competitor_bundling": {
+    "deals": 688,
+    "share_of_deals": 0.688
+  },
+  "L13_post_win_matching_and_renewal": {
+    "deals": 322,
+    "share_of_deals": 0.322
+  },
+  "L14_term_vs_breakeven_mismatch": {
+    "deals": 57,
+    "share_of_deals": 0.057
+  }
+}

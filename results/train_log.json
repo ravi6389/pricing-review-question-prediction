@@ -1,0 +1,178 @@
+{
+  "stage": "6_training",
+  "run_name": "Qwen2.5-3B-Instruct-lora",
+  "base_model": "Qwen/Qwen2.5-3B-Instruct",
+  "gpu": {
+    "name": "Tesla T4",
+    "capability": "7.5",
+    "bf16": false,
+    "can_4bit": true,
+    "total_memory_gb": 14.6
+  },
+  "minutes": 31.0,
+  "load_path": "causal_lm",
+  "hyperparameters": {
+    "seed": 42,
+    "load_4bit": false,
+    "quant": null,
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "down_proj",
+      "gate_proj",
+      "k_proj",
+      "o_proj",
+      "q_proj",
+      "up_proj",
+      "v_proj"
+    ],
+    "learning_rate": 0.0002,
+    "scheduler": "cosine",
+    "warmup_ratio": 0.03,
+    "epochs": 3.0,
+    "batch_size": 1,
+    "grad_accum": 16,
+    "effective_batch": 16,
+    "max_seq_len": 1536,
+    "optimizer": "adamw_torch",
+    "precision": "fp16"
+  },
+  "trainable_params": 29933568,
+  "total_params": 3115872256,
+  "trainable_pct": 0.9607,
+  "n_train": 700,
+  "n_val": 100,
+  "val_subsampled": true,
+  "training_args_dropped_by_version": [],
+  "transformers_version": "5.20.2",
+  "train_examples_truncated": 0,
+  "final_train_loss": 0.8104,
+  "log_history": [
+    {
+      "loss": 2.6868513107299803,
+      "grad_norm": 0.7096988558769226,
+      "learning_rate": 0.00019893433680751103,
+      "epoch": 0.22857142857142856,
+      "step": 10
+    },
+    {
+      "loss": 1.8714693069458008,
+      "grad_norm": 1.1955904960632324,
+      "learning_rate": 0.00019250402067486522,
+      "epoch": 0.45714285714285713,
+      "step": 20
+    },
+    {
+      "loss": 1.379414939880371,
+      "grad_norm": 1.363921046257019,
+      "learning_rate": 0.00018061444917553629,
+      "epoch": 0.6857142857142857,
+      "step": 30
+    },
+    {
+      "loss": 0.9839572906494141,
+      "grad_norm": 1.5237950086593628,
+      "learning_rate": 0.00016396730215588915,
+      "epoch": 0.9142857142857143,
+      "step": 40
+    },
+    {
+      "eval_loss": 0.5914510488510132,
+      "eval_runtime": 24.7391,
+      "eval_samples_per_second": 4.042,
+      "eval_steps_per_second": 4.042,
+      "epoch": 1.0,
+      "step": 44
+    },
+    {
+      "loss": 0.6699242115020752,
+      "grad_norm": 1.6125699281692505,
+      "learning_rate": 0.00014354503449781912,
+      "epoch": 1.1371428571428572,
+      "step": 50
+    },
+    {
+      "loss": 0.5189213752746582,
+      "grad_norm": 1.389914631843567,
+      "learning_rate": 0.00012055289515698007,
+      "epoch": 1.3657142857142857,
+      "step": 60
+    },
+    {
+      "loss": 0.45513181686401366,
+      "grad_norm": 1.1238452196121216,
+      "learning_rate": 9.63477976942341e-05,
+      "epoch": 1.5942857142857143,
+      "step": 70
+    },
+    {
+      "loss": 0.41431093215942383,
+      "grad_norm": 0.9589394330978394,
+      "learning_rate": 7.235824010632283e-05,
+      "epoch": 1.822857142857143,
+      "step": 80
+    },
+    {
+      "eval_loss": 0.33764275908470154,
+      "eval_runtime": 24.6063,
+      "eval_samples_per_second": 4.064,
+      "eval_steps_per_second": 4.064,
+      "epoch": 2.0,
+      "step": 88
+    },
+    {
+      "loss": 0.3843462705612183,
+      "grad_norm": 0.9723904132843018,
+      "learning_rate": 5.000000000000002e-05,
+      "epoch": 2.045714285714286,
+      "step": 90
+    },
+    {
+      "loss": 0.3342273473739624,
+      "grad_norm": 0.9902914762496948,
+      "learning_rate": 3.059258047793661e-05,
+      "epoch": 2.2742857142857145,
+      "step": 100
+    },
+    {
+      "loss": 0.31226725578308107,
+      "grad_norm": 0.8627238273620605,
+      "learning_rate": 1.5281337800393968e-05,
+      "epoch": 2.5028571428571427,
+      "step": 110
+    },
+    {
+      "loss": 0.3163196325302124,
+      "grad_norm": 0.8014214038848877,
+      "learning_rate": 4.969886568641757e-06,
+      "epoch": 2.7314285714285713,
+      "step": 120
+    },
+    {
+      "loss": 0.31007936000823977,
+      "grad_norm": 0.9293839335441589,
+      "learning_rate": 2.667716336448356e-07,
+      "epoch": 2.96,
+      "step": 130
+    },
+    {
+      "eval_loss": 0.3076496422290802,
+      "eval_runtime": 24.6752,
+      "eval_samples_per_second": 4.053,
+      "eval_steps_per_second": 4.053,
+      "epoch": 3.0,
+      "step": 132
+    },
+    {
+      "train_runtime": 1859.5696,
+      "train_samples_per_second": 1.129,
+      "train_steps_per_second": 0.071,
+      "total_flos": 1.3270719536676864e+16,
+      "train_loss": 0.8103551679488384,
+      "epoch": 3.0,
+      "step": 132
+    }
+  ],
+  "adapter_path": "/kaggle/working/outputs/Qwen2.5-3B-Instruct-lora/adapter"
+}
