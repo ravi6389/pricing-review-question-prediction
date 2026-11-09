@@ -38,6 +38,14 @@ import random
 from collections import Counter
 from pathlib import Path
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 # ---------------------------------------------------------------------------
 # DECLARED DISTRIBUTIONS
 # Everything a reviewer needs to judge the data's realism lives in this block.
@@ -297,13 +305,13 @@ def main():
     }
     (args.out / "deals_card.json").write_text(json.dumps(card, indent=2), encoding="utf-8")
 
-    print(f"wrote {len(deals)} deals, {card['n_features_per_deal']} features each")
-    print("\nrealised archetype mix:")
+    log.info(f"wrote {len(deals)} deals, {card['n_features_per_deal']} features each")
+    log.info("\nrealised archetype mix:")
     for k, v in card["realised_archetype_mix"].items():
-        print(f"  {k:<20} {v}")
-    print("\nlever coverage:")
+        log.info(f"  {k:<20} {v}")
+    log.info("\nlever coverage:")
     for k, v in card["lever_coverage"].items():
-        print(f"  {k:<32} {v['count']:>5}  ({v['share']})")
+        log.info(f"  {k:<32} {v['count']:>5}  ({v['share']})")
 
 
 if __name__ == "__main__":

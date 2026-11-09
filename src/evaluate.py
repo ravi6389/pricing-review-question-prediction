@@ -58,6 +58,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from levers import LEVERS, LEVERS_BY_ID  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 UNMAPPABLE = -1
 SIM_FLOOR = 0.12   # below this, the output is not recognisably any lever
 
@@ -402,7 +410,7 @@ def main():
         + ("-tuned" if args.adapter else "-base")
         + ("-fairprompt" if args.fair_baseline else "")
     )
-    print(f"evaluating {tag} on {len(rows_in)} {args.split} examples\n")
+    log.info(f"evaluating {tag} on {len(rows_in)} {args.split} examples\n")
 
     if args.mode == "set":
         args.max_new_tokens = max(args.max_new_tokens, 400)  # a list, not one line
@@ -435,7 +443,7 @@ def main():
                 "generated": text,
             })
             if n % 25 == 0 or n == len(rows_in):
-                print(f"  {n}/{len(rows_in)}", flush=True)
+                log.info(f"  {n}/{len(rows_in)}")
             continue
 
         pred_id, sim = mapper.map(text)
@@ -451,7 +459,7 @@ def main():
             "generated": text,
         })
         if n % 50 == 0 or n == len(rows_in):
-            print(f"  {n}/{len(rows_in)}", flush=True)
+            log.info(f"  {n}/{len(rows_in)}")
 
     metrics = score_sets(out_rows) if args.mode == "set" else score_all(out_rows, mapper)
     baselines = trivial_baselines(out_rows) if args.mode == "set" else None
@@ -502,31 +510,31 @@ def main():
     table["runs"][tag] = metrics
     table_path.write_text(json.dumps(table, indent=2), encoding="utf-8")
 
-    print(f"\n{tag}")
+    log.info(f"\n{tag}")
     if args.mode == "set":
         for k in ("micro_recall", "micro_precision", "micro_f1", "macro_f1",
                   "exact_set_match", "mean_questions_predicted",
                   "mean_questions_gold", "unmappable_rate"):
-            print(f"  {k:<26}{metrics[k]}")
-        print("\n  trivial baselines to beat:")
+            log.info(f"  {k:<26}{metrics[k]}")
+        log.info("\n  trivial baselines to beat:")
         for name, b in baselines.items():
-            print(f"    {name:<20}f1 {b['micro_f1']:<8}r {b['micro_recall']:<8}"
+            log.info(f"    {name:<20}f1 {b['micro_f1']:<8}r {b['micro_recall']:<8}"
                   f"p {b['micro_precision']}")
-        print("\nlevers most often missed:")
+        log.info("\nlevers most often missed:")
         worst = sorted(metrics["per_lever_recall"].items(),
                        key=lambda kv: kv[1]["recall"])[:5]
         for name, v in worst:
-            print(f"  {name:<44}recall {v['recall']}  (in {v['gold_deals']} deals)")
+            log.info(f"  {name:<44}recall {v['recall']}  (in {v['gold_deals']} deals)")
     else:
         for k in ("next_lever_accuracy", "macro_f1", "repeat_rate",
                   "unmappable_rate", "accuracy_first_turn", "accuracy_later_turns"):
-            print(f"  {k:<24}{metrics[k]}")
-        print("\nworst levers:")
+            log.info(f"  {k:<24}{metrics[k]}")
+        log.info("\nworst levers:")
         worst = sorted(metrics["accuracy_by_lever"].items(),
                        key=lambda kv: kv[1]["accuracy"])[:5]
         for name, v in worst:
-            print(f"  {name:<44}{v['accuracy']}  (n={v['n']})")
-    print(f"\nall runs so far: {sorted(table['runs'])}")
+            log.info(f"  {name:<44}{v['accuracy']}  (n={v['n']})")
+    log.info(f"\nall runs so far: {sorted(table['runs'])}")
 
 
 if __name__ == "__main__":

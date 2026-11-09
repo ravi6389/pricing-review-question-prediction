@@ -45,6 +45,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from llm import CachedLLM  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 NOT_STATED = "not_stated"
 
 # Field -> (type, tolerance). Tolerance is relative, for floats read out of prose.
@@ -280,10 +288,10 @@ def main():
     use_llm = args.extractor == "llm" and llm.provider != "offline"
     if use_llm:
         n_new = sum(1 for d in docs if not llm.is_cached(build_prompt(d["document"]), 0.0))
-        print(f"provider={llm.provider} model={llm.model} extractor=llm")
-        print(f"{len(docs)} documents: {len(docs) - n_new} cached, {n_new} need a call\n")
+        log.info(f"provider={llm.provider} model={llm.model} extractor=llm")
+        log.info(f"{len(docs)} documents: {len(docs) - n_new} cached, {n_new} need a call\n")
     else:
-        print(f"extractor=regex (rule-based baseline, no API)\n")
+        log.info(f"extractor=regex (rule-based baseline, no API)\n")
 
     rows, preds = [], []
     field_rows = defaultdict(lambda: {"correct": 0, "wrong": 0, "missed": 0})
@@ -315,7 +323,7 @@ def main():
         preds.append({"deal_id": rec["deal_id"], "split": rec["split"], "extracted": pred})
 
         if use_llm and (n % 25 == 0 or n == len(docs)):
-            print(f"  {n}/{len(docs)}", flush=True)
+            log.info(f"  {n}/{len(docs)}")
             llm.save()
 
     # Always write the cache file, even in regex/offline mode, so the artifact
@@ -347,14 +355,14 @@ def main():
         json.dumps(report, indent=2), encoding="utf-8")
 
     o = report["overall"]
-    print(f"\nextractor: {report['extractor']}")
-    print(f"  field accuracy on stated fields   {o['field_accuracy_on_stated']}")
-    print(f"  miss rate on stated fields        {o['miss_rate_on_stated']}")
-    print(f"  abstention recall on omitted      {o['abstention_recall_on_omitted']}")
-    print(f"  HALLUCINATION RATE on omitted     {o['hallucination_rate_on_omitted']}")
-    print("\n  weakest fields:")
+    log.info(f"\nextractor: {report['extractor']}")
+    log.info(f"  field accuracy on stated fields   {o['field_accuracy_on_stated']}")
+    log.info(f"  miss rate on stated fields        {o['miss_rate_on_stated']}")
+    log.info(f"  abstention recall on omitted      {o['abstention_recall_on_omitted']}")
+    log.info(f"  HALLUCINATION RATE on omitted     {o['hallucination_rate_on_omitted']}")
+    log.info("\n  weakest fields:")
     for f, acc in o["worst_fields"]:
-        print(f"    {f:<34}{acc}")
+        log.info(f"    {f:<34}{acc}")
 
 
 if __name__ == "__main__":

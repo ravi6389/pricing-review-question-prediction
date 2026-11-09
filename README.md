@@ -30,6 +30,31 @@ Gold mean: 4.74 questions per deal. "Off-list" is the share of generated questio
 
 Serving the winner: **2.48 GB on a Tesla T4, median 2.9 s, p95 4.5 s.**
 
+## Tests
+
+```bash
+pip install pytest
+pytest -q          # 81 tests, ~1 second, no GPU and no API key
+```
+
+The rule engine and the scorer are pure functions over plain data, which is what makes them testable without a model. Coverage is concentrated where a silent error would be most expensive:
+
+| Area | What is pinned |
+|---|---|
+| `test_levers.py` | All 14 trigger conditions, ladder traversal, bare-answer detection, and three regressions — the `closed` bug, the unconditional L1 fix, and refusals advancing rather than terminating |
+| `test_scoring.py` | Precision/recall/F1 by hand-checkable cases, the similarity floor that keeps the hallucination rate honest, question splitting, and the trivial baselines |
+| `test_pipeline.py` | Seed determinism, label integrity, archetype coverage, and the payback-derivation regression |
+
+Several tests exist because the bug they describe actually happened. A scorer that is quietly wrong is worse than no scorer, because nobody questions its numbers.
+
+## Logging
+
+Every stage logs to the console and to `results/pipeline.log`. Verbosity is set with `--log-level` or the `LOG_LEVEL` environment variable; the file always keeps `DEBUG`.
+
+```bash
+python run.py step4 --log-level DEBUG
+```
+
 ## Reproducing
 
 ```bash
@@ -82,6 +107,7 @@ Full reasoning, including rejected alternatives, is in the write-up. A working l
 
 ```
 run.py                  deterministic runner, 7 stages + verify
+tests/                  pytest suite (81 tests, no GPU required)
 src/                    pipeline stages
 data/                   generated dataset + provenance cards
 results/                scores, manifest, forgetting check

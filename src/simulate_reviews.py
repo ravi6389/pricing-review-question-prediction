@@ -43,6 +43,13 @@ sys.path.insert(0, str(Path(__file__).parent))
 from levers import (  # noqa: E402
     LEVERS_BY_ID, DealState, next_lever, terminal_verdict,
 )
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger  # noqa: E402
+
+log = get_logger(__name__)
 
 # ---------------------------------------------------------------------------
 # Declared rep-response behaviour
@@ -290,14 +297,14 @@ def main():
         (Path("results") / "lever_distribution.json").write_text(
             json.dumps(stats["lever_frequency"], indent=2), encoding="utf-8")
 
-        print(f"{len(sets)} deals, {total_q} questions, "
+        log.info(f"{len(sets)} deals, {total_q} questions, "
               f"mean {stats['mean_questions_per_deal']} per deal")
-        print("questions per deal:", stats["question_count_distribution"])
-        print("\nlever frequency (share of deals asking it):")
+        log.info("questions per deal: %s", stats["question_count_distribution"])
+        log.info("\nlever frequency (share of deals asking it):")
         for k, v in stats["lever_frequency"].items():
             bar = "#" * int(v["share_of_deals"] * 50)
-            print(f"  {k:<42} {v['deals']:>5}  {bar}")
-        print("\nverdicts:", stats["verdict_distribution"])
+            log.info(f"  {k:<42} {v['deals']:>5}  {bar}")
+        log.info("\nverdicts: %s", stats["verdict_distribution"])
         return
 
     reviews = [simulate(d, rng) for d in deals]
@@ -354,14 +361,14 @@ def main():
     (Path("results") / "lever_distribution.json").write_text(
         json.dumps(stats["lever_frequency"], indent=2), encoding="utf-8")
 
-    print(f"{len(reviews)} reviews, {total_turns} turns, "
+    log.info(f"{len(reviews)} reviews, {total_turns} turns, "
           f"mean {stats['mean_turns_per_review']} turns/review")
-    print("\nlever frequency (this is your label distribution):")
+    log.info("\nlever frequency (this is your label distribution):")
     for k, v in stats["lever_frequency"].items():
         bar = "#" * int(v["share_of_turns"] * 120)
-        print(f"  {k:<42} {v['turns']:>5}  {bar}")
-    print("\nverdicts:", stats["verdict_distribution"])
-    print("response mix:", stats["realised_response_mix"])
+        log.info(f"  {k:<42} {v['turns']:>5}  {bar}")
+    log.info("\nverdicts: %s", stats["verdict_distribution"])
+    log.info("response mix: %s", stats["realised_response_mix"])
 
 
 if __name__ == "__main__":

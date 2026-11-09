@@ -44,6 +44,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from llm import CachedLLM  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 # ---------------------------------------------------------------------------
 # Author voices. Pool A -> train/val. Pool B -> test only.
 # ---------------------------------------------------------------------------
@@ -229,13 +237,13 @@ def main():
 
     n_cached = sum(1 for *_, m in planned if llm.is_cached(m, 0.8))
     n_calls = len(planned) - n_cached if not args.regenerate else len(planned)
-    print(f"provider={llm.provider} model={llm.model}")
-    print(f"{len(planned)} documents: {n_cached} already cached, "
+    log.info(f"provider={llm.provider} model={llm.model}")
+    log.info(f"{len(planned)} documents: {n_cached} already cached, "
           f"{n_calls} need a model call")
     if n_calls and llm.provider != "offline":
-        print(f"  roughly {n_calls * 2 // 60 + 1} min at ~2s per call. "
+        log.info(f"  roughly {n_calls * 2 // 60 + 1} min at ~2s per call. "
               f"Ctrl+C is safe -- progress is saved every 25 documents.")
-    print()
+    log.info("")
 
     out = []
     for n, (deal, split, voice_name, voice_desc, messages) in enumerate(planned, 1):
@@ -245,7 +253,7 @@ def main():
             offline_fallback=lambda d=deal, v=voice_name: offline_document(d, v, rng),
         )
         if n % 25 == 0 or n == len(planned):
-            print(f"  {n}/{len(planned)} documents", flush=True)
+            log.info(f"  {n}/{len(planned)} documents")
             llm.save()   # checkpoint, so Ctrl+C never loses completed work
         out.append({
             "deal_id": deal["deal_id"],
@@ -277,11 +285,11 @@ def main():
     }
     (args.data / "documents_card.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
-    print(json.dumps(meta["llm"], indent=2))
-    print("splits:", meta["split_counts"])
-    print("\nsample (pool A):\n ", out[0]["document"][:400])
+    log.info(json.dumps(meta["llm"], indent=2))
+    log.info("splits: %s", meta["split_counts"])
+    log.info("\nsample (pool A):\n  %s", out[0]["document"][:400])
     t = next(r for r in out if r["voice_pool"] == "B")
-    print("\nsample (pool B, test):\n ", t["document"][:400])
+    log.info("\nsample (pool B, test):\n  %s", t["document"][:400])
 
 
 if __name__ == "__main__":

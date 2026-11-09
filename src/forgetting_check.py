@@ -38,6 +38,14 @@ import torch
 sys.path.insert(0, str(Path(__file__).parent))
 from train import chat_template_ids, set_seed, gpu_profile  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 # General instructions, deliberately unrelated to pricing reviews. A healthy
 # model answers these normally; a model that has forgotten returns questions.
 PROMPTS = [
@@ -115,18 +123,18 @@ def main():
     if tok.pad_token_id is None:
         tok.pad_token = tok.eos_token
 
-    print("loading base...", flush=True)
+    log.info("loading base...")
     base = AutoModelForCausalLM.from_pretrained(
         args.model, trust_remote_code=True, dtype=dtype, device_map={"": 0})
     base.eval()
     base_answers = [generate(base, tok, p) for p in PROMPTS]
-    print("base done", flush=True)
+    log.info("base done")
 
-    print("attaching adapter...", flush=True)
+    log.info("attaching adapter...")
     tuned = PeftModel.from_pretrained(base, str(args.adapter))
     tuned.eval()
     tuned_answers = [generate(tuned, tok, p) for p in PROMPTS]
-    print("tuned done", flush=True)
+    log.info("tuned done")
 
     report = {
         "model": args.model,
@@ -152,14 +160,14 @@ def main():
     (args.results_dir / f"forgetting_{tag}.json").write_text(
         json.dumps(report, indent=2), encoding="utf-8")
 
-    print(f"\n{'metric':<22}{'base':>10}{'tuned':>10}")
+    log.info(f"\n{'metric':<22}{'base':>10}{'tuned':>10}")
     for k in ("task_bleed_rate", "numbered_list_rate", "pricing_vocab_rate",
               "mean_chars", "empty_rate"):
-        print(f"{k:<22}{report['base'][k]:>10}{report['tuned'][k]:>10}")
-    print("\n--- example: 'Write a haiku about rain.' ---")
+        log.info(f"{k:<22}{report['base'][k]:>10}{report['tuned'][k]:>10}")
+    log.info("\n--- example: 'Write a haiku about rain.' ---")
     i = PROMPTS.index("Write a haiku about rain.")
-    print("BASE :", base_answers[i][:300].replace("\n", " / "))
-    print("TUNED:", tuned_answers[i][:300].replace("\n", " / "))
+    log.info("BASE : %s", base_answers[i][:300].replace("\n", " / "))
+    log.info("TUNED: %s", tuned_answers[i][:300].replace("\n", " / "))
 
 
 if __name__ == "__main__":

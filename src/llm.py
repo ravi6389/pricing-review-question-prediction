@@ -29,6 +29,14 @@ import os
 from pathlib import Path
 from typing import Callable, Optional
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 ROOT = Path(__file__).parent.parent
 CACHE_DIR = ROOT / "cache"
 

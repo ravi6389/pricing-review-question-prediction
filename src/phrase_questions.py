@@ -43,6 +43,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from levers import LEVERS, LEVERS_BY_ID  # noqa: E402
 from llm import CachedLLM  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 N_VARIANTS = 40
 N_TRAIN_VARIANTS = 30   # variants [0:30] -> train/val, [30:40] -> test
 
@@ -269,8 +277,8 @@ def main():
 
     llm = CachedLLM("phrasings", regenerate=args.regenerate)
     n_calls = len(LEVERS) + 1
-    print(f"provider={llm.provider} model={llm.model}")
-    print(f"{n_calls} generation calls ({len(LEVERS)} lever pools + 1 acknowledgement pool)\n")
+    log.info(f"provider={llm.provider} model={llm.model}")
+    log.info(f"{n_calls} generation calls ({len(LEVERS)} lever pools + 1 acknowledgement pool)\n")
 
     variants = {}
     for lever in LEVERS:
@@ -279,7 +287,7 @@ def main():
             offline_fallback=lambda l=lever: offline_variants(l),
         )
         variants[lever.id] = parse_array(raw, N_VARIANTS, f"lever {lever.id}")
-        print(f"  L{lever.id:<2} {lever.name:<40} {len(set(variants[lever.id]))} unique")
+        log.info(f"  L{lever.id:<2} {lever.name:<40} {len(set(variants[lever.id]))} unique")
 
     raw = llm.chat(
         ack_prompt(), temperature=0.9, max_tokens=1200,
@@ -287,7 +295,7 @@ def main():
     )
     acks = [a for a in parse_array(raw, 24, "acknowledgements") if "{prior}" in a] or OFFLINE_ACKS
     llm.save()
-    print(f"  acknowledgement openers: {len(acks)}\n")
+    log.info(f"  acknowledgement openers: {len(acks)}\n")
 
     rng = random.Random(args.seed)
     buckets = {"train": [], "val": [], "test": []}
@@ -342,11 +350,11 @@ def main():
         "surface_holdout_clean": shared_q == 0 and not (d_train & d_test),
     }
     if shared_q:
-        print(f"\n  WARNING: {shared_q} manager questions appear in BOTH train and "
+        log.info(f"\n  WARNING: {shared_q} manager questions appear in BOTH train and "
               f"test ({leakage['shared_question_rate']:.0%} of test).")
-        print("  Expected when LLM_PROVIDER=offline (the template yields ~8 distinct")
-        print("  stems per lever, so the 0-29 / 30-39 slices collide).")
-        print("  Re-run with a real model to make the surface holdout genuine.\n")
+        log.info("  Expected when LLM_PROVIDER=offline (the template yields ~8 distinct")
+        log.info("  stems per lever, so the 0-29 / 30-39 slices collide).")
+        log.info("  Re-run with a real model to make the surface holdout genuine.\n")
 
     card = {
         "stage": "5_question_phrasing",
@@ -385,14 +393,14 @@ def main():
     }
     (args.data / "training_card.json").write_text(json.dumps(card, indent=2), encoding="utf-8")
 
-    print("examples:", card["n_examples"])
-    print("mean questions per example:", card["mean_questions_per_example"])
-    print("\nsample (test split, held-out surface):")
+    log.info("examples: %s", card["n_examples"])
+    log.info("mean questions per example: %s", card["mean_questions_per_example"])
+    log.info("\nsample (test split, held-out surface):")
     ex = max(buckets["test"], key=lambda e: e.get("n_questions", 1))
-    print("  [system] ...deal note...")
+    log.info("  [system] ...deal note...")
     for line in ex["messages"][-1]["content"].split("\n"):
-        print(f"           {line}")
-    print(f"  gold levers: {ex.get('gold_lever_ids', ex.get('gold_lever_id'))}")
+        log.info(f"           {line}")
+    log.info(f"  gold levers: {ex.get('gold_lever_ids', ex.get('gold_lever_id'))}")
 
 
 if __name__ == "__main__":

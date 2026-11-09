@@ -38,6 +38,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+from logging_config import get_logger, setup_logging  # noqa: E402
+
+log = get_logger("run")
+
 ROOT = Path(__file__).parent.resolve()
 RESULTS = ROOT / "results"
 MANIFEST = RESULTS / "manifest.json"
@@ -166,23 +171,23 @@ def run_step(step: str, regenerate: bool) -> int:
     cmd = list(spec["cmd"])
     if regenerate:
         if not spec["uses_model"]:
-            print(f"{step} makes no model calls; --regenerate has no effect.")
+            log.info(f"{step} makes no model calls; --regenerate has no effect.")
         else:
             cmd.append("--regenerate")
 
-    print(f"\n=== {step}: {spec['desc']} ===")
-    print("  $", " ".join(cmd))
+    log.info(f"\n=== {step}: {spec['desc']} ===")
+    log.info("  $ %s", " ".join(cmd))
     if spec["uses_model"] and not regenerate:
-        print("  (replaying cached model calls -- no network access)")
+        log.info("  (replaying cached model calls -- no network access)")
 
     proc = subprocess.run(cmd, cwd=ROOT, env=seeded_env())
     if proc.returncode != 0:
-        print(f"\n{step} FAILED (exit {proc.returncode}). Manifest not updated.")
+        log.info(f"\n{step} FAILED (exit {proc.returncode}). Manifest not updated.")
         return proc.returncode
 
     missing = [a for a in spec["artifacts"] if not (ROOT / a).exists()]
     if missing:
-        print(f"\n{step} finished but did not produce: {missing}")
+        log.info(f"\n{step} finished but did not produce: {missing}")
         return 1
 
     m = load_manifest()
@@ -193,61 +198,61 @@ def run_step(step: str, regenerate: bool) -> int:
     }
     save_manifest(m)
 
-    print(f"\n{step} complete. Artifact hashes:")
+    log.info(f"\n{step} complete. Artifact hashes:")
     for a, h in m["steps"][step]["artifacts"].items():
-        print(f"  {h[:16]}...  {a}")
+        log.info(f"  {h[:16]}...  {a}")
 
     nxt = STEP_ORDER.index(step) + 1
     if nxt < len(STEP_ORDER):
-        print(f"\nPaused. Next: python run.py {STEP_ORDER[nxt]}")
+        log.info(f"\nPaused. Next: python run.py {STEP_ORDER[nxt]}")
     else:
-        print("\nPipeline complete. Verify with: python run.py verify")
+        log.info("\nPipeline complete. Verify with: python run.py verify")
     return 0
 
 
 def verify() -> int:
     m = load_manifest()
     if not m["steps"]:
-        print("No manifest yet. Run the steps first.")
+        log.info("No manifest yet. Run the steps first.")
         return 1
 
     ok = True
-    print("Verifying artifacts against results/manifest.json\n")
+    log.info("Verifying artifacts against results/manifest.json\n")
     for step in STEP_ORDER:
         if step not in m["steps"]:
             continue
         for a, expected in m["steps"][step]["artifacts"].items():
             p = ROOT / a
             if not p.exists():
-                print(f"  MISSING   {a}")
+                log.info(f"  MISSING   {a}")
                 ok = False
                 continue
             actual = sha256(p)
             if actual == expected:
-                print(f"  match     {a}")
+                log.info(f"  match     {a}")
             else:
-                print(f"  DRIFT     {a}\n              expected {expected}\n              actual   {actual}")
+                log.info(f"  DRIFT     {a}\n              expected {expected}\n              actual   {actual}")
                 ok = False
 
     rec, cur = m.get("environment", {}), environment_fingerprint()
     drifted = {k: (rec.get(k), cur.get(k)) for k in rec if rec.get(k) != cur.get(k)}
     if drifted:
-        print("\nEnvironment differs from the recorded run:")
+        log.info("\nEnvironment differs from the recorded run:")
         for k, (was, now) in drifted.items():
-            print(f"  {k}: recorded {was!r}, now {now!r}")
-        print("  Steps 1-5 should still match exactly. Step 6 may differ on a"
+            log.info(f"  {k}: recorded {was!r}, now {now!r}")
+        log.info("  Steps 1-5 should still match exactly. Step 6 may differ on a"
               "\n  different GPU or library version -- this is expected and documented.")
 
-    print("\nALL ARTIFACTS MATCH" if ok else "\nDRIFT DETECTED -- see above")
+    log.info("\nALL ARTIFACTS MATCH" if ok else "\nDRIFT DETECTED -- see above")
     return 0 if ok else 1
 
 
 def show_list() -> int:
     m = load_manifest()
-    print(f"{'step':<8}{'model':<8}{'ran':<6}description")
+    log.info(f"{'step':<8}{'model':<8}{'ran':<6}description")
     for s in STEP_ORDER:
         spec = STEPS[s]
-        print(f"{s:<8}{'yes' if spec['uses_model'] else 'no':<8}"
+        log.info(f"{s:<8}{'yes' if spec['uses_model'] else 'no':<8}"
               f"{'yes' if s in m['steps'] else 'no':<6}{spec['desc']}")
     return 0
 
@@ -258,7 +263,12 @@ def main() -> int:
     ap.add_argument("target", choices=STEP_ORDER + ["verify", "list"])
     ap.add_argument("--regenerate", action="store_true",
                     help="re-call the model API for a cached step (authoring, not reproduction)")
+    ap.add_argument("--log-level", default=None,
+                    choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+                    help="console verbosity; the log file always keeps DEBUG")
     args = ap.parse_args()
+
+    setup_logging(results_dir=RESULTS, level=args.log_level)
 
     if args.target == "verify":
         return verify()

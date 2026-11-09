@@ -49,6 +49,14 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 sys.path.insert(0, str(Path(__file__).parent))
 
 
@@ -140,7 +148,7 @@ def load_base_model(model_name: str, load_kwargs: dict):
         try:
             from transformers import AutoModelForImageTextToText
             model = AutoModelForImageTextToText.from_pretrained(model_name, **load_kwargs)
-            print(f"  note: loaded via AutoModelForImageTextToText "
+            log.info(f"  note: loaded via AutoModelForImageTextToText "
                   f"(multimodal checkpoint, fine-tuning the text tower)")
             return model, "image_text_to_text"
         except Exception:
@@ -272,7 +280,7 @@ def build_training_args(TrainingArguments, wanted: dict):
 
     final.pop("_steps_per_epoch", None)
     if dropped:
-        print(f"\n  NOTE: this transformers version does not accept "
+        log.info(f"\n  NOTE: this transformers version does not accept "
               f"{dropped}; proceeding without them.\n")
     return TrainingArguments(**final), dropped
 
@@ -306,7 +314,7 @@ def main():
 
     set_seed(args.seed)
     gpu = gpu_profile()
-    print(json.dumps(gpu, indent=2))
+    log.info(json.dumps(gpu, indent=2))
 
     if args.load_4bit and not gpu["can_4bit"]:
         raise SystemExit(
@@ -341,7 +349,7 @@ def main():
         model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
 
     target_modules = detect_target_modules(model)
-    print(f"  target modules detected: {target_modules}")
+    log.info(f"  target modules detected: {target_modules}")
 
     lora = LoraConfig(
         r=args.rank,
@@ -356,7 +364,7 @@ def main():
     model = get_peft_model(model, lora)
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
-    print(f"trainable {trainable:,} / {total:,}  ({100 * trainable / total:.3f}%)")
+    log.info(f"trainable {trainable:,} / {total:,}  ({100 * trainable / total:.3f}%)")
 
     train_ds = NextQuestionDataset(args.data_dir / "train.jsonl", tok, args.max_len)
     val_ds = NextQuestionDataset(args.data_dir / "val.jsonl", tok, args.max_len)
@@ -368,7 +376,7 @@ def main():
         # earliest reviews in file order.
         step = max(1, len(val_ds.rows) // args.max_val)
         val_ds.rows = val_ds.rows[::step][: args.max_val]
-    print(f"train {len(train_ds)}  val {len(val_ds)}")
+    log.info(f"train {len(train_ds)}  val {len(val_ds)}")
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     args.results_dir.mkdir(parents=True, exist_ok=True)
@@ -468,13 +476,13 @@ def main():
     # run.py looks for this fixed name
     (args.results_dir / "train_log.json").write_text(json.dumps(log, indent=2), encoding="utf-8")
 
-    print(f"\ndone in {minutes} min -- adapter at {adapter_dir}")
-    print(f"final train loss {log['final_train_loss']}")
+    log.info(f"\ndone in {minutes} min -- adapter at {adapter_dir}")
+    log.info(f"final train loss {log['final_train_loss']}")
     evals = [h for h in trainer.state.log_history if "eval_loss" in h]
     for e in evals:
-        print(f"  epoch {e.get('epoch')}: eval_loss {round(e['eval_loss'], 4)}")
+        log.info(f"  epoch {e.get('epoch')}: eval_loss {round(e['eval_loss'], 4)}")
     if train_ds.n_truncated:
-        print(f"note: {train_ds.n_truncated} training examples were left-truncated "
+        log.info(f"note: {train_ds.n_truncated} training examples were left-truncated "
               f"at {args.max_len} tokens")
 
 

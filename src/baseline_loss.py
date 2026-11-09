@@ -41,6 +41,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from train import chat_template_ids, set_seed, gpu_profile  # noqa: E402
 
+import os as _os, sys as _sys  # noqa: E402
+_ensure_src_on_path = _os.path.dirname(_os.path.abspath(__file__))
+if _ensure_src_on_path not in _sys.path:
+    _sys.path.insert(0, _ensure_src_on_path)
+from logging_config import get_logger
+
+log = get_logger(__name__)
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -56,7 +64,7 @@ def main():
 
     set_seed(args.seed)
     gpu = gpu_profile()
-    print(json.dumps(gpu, indent=2))
+    log.info(json.dumps(gpu, indent=2))
     if args.load_4bit and not gpu["can_4bit"]:
         raise SystemExit(f"4-bit needs compute capability 7.0+, this GPU is {gpu['capability']}")
 
@@ -116,7 +124,7 @@ def main():
         total_tokens += n_sup
 
         if i % 50 == 0 or i == len(rows):
-            print(f"  {i}/{len(rows)}  running loss {total_loss / total_tokens:.4f}", flush=True)
+            log.info(f"  {i}/{len(rows)}  running loss {total_loss / total_tokens:.4f}")
 
     mean_loss = total_loss / total_tokens
     report = {
@@ -143,14 +151,14 @@ def main():
     table["models"][args.model] = report
     table_path.write_text(json.dumps(table, indent=2), encoding="utf-8")
 
-    print(f"\n{args.model}")
-    print(f"  mean loss                    {report['mean_loss']}")
-    print(f"  perplexity                   {report['perplexity']}")
-    print(f"  mean tokens / example        {report['mean_tokens_per_example']}")
-    print(f"  supervised tokens / example  {report['mean_supervised_tokens_per_example']}")
-    print(f"\nall measured so far:")
+    log.info(f"\n{args.model}")
+    log.info(f"  mean loss                    {report['mean_loss']}")
+    log.info(f"  perplexity                   {report['perplexity']}")
+    log.info(f"  mean tokens / example        {report['mean_tokens_per_example']}")
+    log.info(f"  supervised tokens / example  {report['mean_supervised_tokens_per_example']}")
+    log.info(f"\nall measured so far:")
     for m, r in sorted(table["models"].items(), key=lambda kv: kv[1]["mean_loss"]):
-        print(f"  {r['mean_loss']:>8}  ppl {r['perplexity']:>9}  "
+        log.info(f"  {r['mean_loss']:>8}  ppl {r['perplexity']:>9}  "
               f"tok/ex {r['mean_tokens_per_example']:>7}  {m}")
 
 
