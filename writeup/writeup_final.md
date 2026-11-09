@@ -41,15 +41,14 @@ One entry point (`python run.py`), seven stages, each writing its artifact to di
 2. **Write** — GPT-4o renders each deal as a sales-voice note, omitting some facts. Four voices for train/val; two different voices reserved for test.
 3. **Extract** — side branch, not on the training path: measure whether the fields can be read back out (87.9% on stated, 16.4% invention on omitted).
 4. **Select** — the rule engine fires levers against the script's *own* values, one condition per lever. 5,074 questions over 1,000 deals, mean 5.07. This list is the label.
-5. **Phrase** — 40 natural wordings per lever, 560 in total; wordings 1–30 go to training, 31–40 to test. Split 700/100/200.
-6. **Train** — five models, identical recipe, LoRA adapters only.
+5. **Phrase** — GPT-4o writes 40 natural wordings per lever, 560 in total; wordings 1–30 go to training, 31–40 to test. Split 700/100/200.
+6. **Train** — five models, identical recipe, LoRA adapters only, on Kaggle's free **T4 ×2** (16 GB each, one model per card).
 7. **Evaluate** — ten runs (five base, five tuned) plus two no-model baselines, same 200 test deals, same code.
 
-Business rules are isolated in one module so they can be read and corrected by someone who does not read Python.
 
-Seeds, `PYTHONHASHSEED` and the cuBLAS workspace are pinned before any import; every artifact's SHA-256 goes to a manifest. **The manifest produced on Windows matches the one produced on Linux.** All LLM calls are cached on a hash of (model, messages, temperature), so the dataset regenerates byte-identically without an API key.
+Seeds, `PYTHONHASHSEED` and the cuBLAS workspace are pinned before any import; every artifact's SHA-256 goes to a manifest. **The manifest produced on Windows matches the one produced on Linux.** **Compute and models.** The script owns every number; GPT-4o, called through my own private Azure OpenAI deployment, only turns those numbers into prose (stage 2) and question wordings (stage 5). The key is never committed; every call is cached on a hash of (model, messages, temperature), so the dataset regenerates byte-identically with no key at all. All training, evaluation and serving measurements ran on Kaggle T4s — no paid GPU.
 
-Correctness details that matter in this track: chat templates applied through the tokenizer, never hand-written; adapter targets detected by scanning the model rather than hard-coded; training arguments checked against the installed library signature at runtime, with remaps logged; loss compared only within a family, since different tokenizers make per-token loss incomparable (372 vs 379 tokens for identical examples).
+Correctness details that matter in this track: chat templates applied through the tokenizer, never hand-written; adapter targets detected by scanning the model rather than hard-coded; training arguments checked against the installed library at runtime; loss compared only within a family, since different tokenizers make per-token loss incomparable (372 vs 379 tokens for identical examples).
 
 Bugs that changed results: rule triggers tested only exhausted levers, not answered ones (reviews died after 2 questions); payback derived from revenue instead of the reverse (76% of deals implausible, now 18%); and the leakage check compared whole lists instead of individual questions, **reporting zero while 70% leaked**. The last is the instructive one — a verification step that is itself wrong manufactures confidence, and it was caught only by testing it against a case where leakage was known to exist.
 
@@ -89,4 +88,4 @@ Gold mean: 4.74 questions. **Every tuned model beat every base model** — the w
 
 **Output is a suggestion to the rep, never a gate on the deal.** Nothing is blocked or auto-approved.
 
-**Limitations.** (1) All data is synthetic; the first real step is scoring against historical deal notes. (2) A fixed guess beats every model, so the benchmark needs rebalancing. (3) Scoring depends on a TF-IDF mapper with a known confusion. (4) The base comparison used a flawed prompt. (5) The taxonomy is 14 levers from one transcript; real policy is larger. (6) Forgetting was checked on one model, not five. (7) Precision 0.39–0.60 leaves in-taxonomy-but-wrong questions; manager edits are the correction loop, not a fix.
+**Limitations.** (1) All data is synthetic; the first real step is scoring against historical deal notes. (2) A fixed guess beats every model, so the benchmark needs rebalancing. (3) Scoring depends on a TF-IDF mapper with a known confusion. (4) The base comparison used a flawed prompt. (5) The taxonomy is 14 levers from one transcript; real policy is larger. (6) Forgetting checked on one model only. (7) Precision 0.39–0.60 leaves valid-but-wrong questions; manager edits correct them.
